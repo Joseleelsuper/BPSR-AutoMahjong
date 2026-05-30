@@ -12,3 +12,4 @@ Desktop.ini
 # Archivos de desarrollo
 .vscode/
 .idea/
+*.exe

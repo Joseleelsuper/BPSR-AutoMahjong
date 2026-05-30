@@ -25,14 +25,12 @@ global State := Map()
 ;  Inicializacion
 ; ============================
 Init() {
-    global Config, State
+    global Config
 
     Config["Base"] := { w: 1920, h: 1080 }
     Config["TimerInterval"] := 100
     Config["Tolerance"] := {
-        primary: 25,
-        button: 35,
-        loose: 55
+        primary: 25
     }
 
     Config["Timings"] := Map()
@@ -59,7 +57,7 @@ Init() {
     DefineSignatures()
 
     Config["LoggingEnabled"] := true
-    Config["LogPath"] := A_ScriptDir . "\script.log"
+    Config["LogPath"] := A_ScriptDir . "\BPSR-AutoMahjong.log"
 
     ResetRuntimeState(false)
     RefreshGameWindow()
@@ -172,14 +170,13 @@ ResetRuntimeState(keepToggle := true) {
     State["botOptionsClicked"] := false
     State["finalConfirmClicked"] := false
     State["finalConfirmAt"] := 0
-    State["lastWindowRefresh"] := 0
 }
 
 ; ============================
 ;  Ventana y Escalado
 ; ============================
 RefreshGameWindow() {
-    global Config, State
+    global Config
 
     DetectGameWindow()
     Config["Scale"] := {
@@ -194,7 +191,6 @@ RefreshGameWindow() {
 
     Config["Points"] := Map()
     RebuildScaledPoints()
-    State["lastWindowRefresh"] := A_TickCount
 
     Log("INFO", "Ventana: " . Config["GameWindow"].w . "x" . Config["GameWindow"].h
         . " @ (" . Config["GameWindow"].x . "," . Config["GameWindow"].y . ")"
@@ -308,7 +304,7 @@ CheckLogic() {
 }
 
 RunAutomationCycle() {
-    global Config, State
+    global State
 
     now := A_TickCount
     if (now < State["holdUntil"]) {
@@ -381,10 +377,7 @@ ClickAcceptGame() {
     ClickPoint("acceptButton")
     UpdateActionTime()
     State["holdUntil"] := A_TickCount + Config["Timings"]["afterAccept"]
-    State["queueRequested"] := false
-    State["queueRequestedAt"] := 0
-    State["roundDetectedAt"] := 0
-    State["botOptionsClicked"] := false
+    ResetRoundState()
     Log("ACTION", "Partida aceptada")
 }
 
@@ -407,23 +400,15 @@ StartQueue() {
 }
 
 ObserveRoundResultScreen(screenName) {
-    global State
-
     SetScreen(screenName)
-    State["queueRequested"] := false
-    State["queueRequestedAt"] := 0
-    State["roundDetectedAt"] := 0
-    State["botOptionsClicked"] := false
+    ResetRoundState()
 }
 
 ObserveFinalScreen() {
     global Config, State
 
     SetScreen("final_screen")
-    State["queueRequested"] := false
-    State["queueRequestedAt"] := 0
-    State["roundDetectedAt"] := 0
-    State["botOptionsClicked"] := false
+    ResetRoundState()
 
     if (!State["finalConfirmClicked"]
         || (A_TickCount - State["finalConfirmAt"]) >= Config["Timings"]["finalConfirmRetry"]) {
@@ -443,8 +428,7 @@ ClickFinalConfirm() {
     State["holdUntil"] := A_TickCount + Config["Timings"]["afterFinalConfirm"]
     State["finalConfirmClicked"] := true
     State["finalConfirmAt"] := A_TickCount
-    State["queueRequested"] := false
-    State["queueRequestedAt"] := 0
+    ResetRoundState()
     Log("ACTION", "Final Round confirmado; esperando prompt F para nueva cola")
 }
 
@@ -453,6 +437,15 @@ ResetFinalConfirmState() {
 
     State["finalConfirmClicked"] := false
     State["finalConfirmAt"] := 0
+}
+
+ResetRoundState() {
+    global State
+
+    State["queueRequested"] := false
+    State["queueRequestedAt"] := 0
+    State["roundDetectedAt"] := 0
+    State["botOptionsClicked"] := false
 }
 
 HandleActiveRound() {
