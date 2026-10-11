@@ -1,30 +1,36 @@
 # BPSR-AutoMahjong
 
-Script de AutoHotkey para automatizar el flujo externo de Mahjong en Blue Protocol: Star Resonance.
+Automates the queue and match-result flow for Mahjong in Blue Protocol: Star Resonance.
 
-El script no juega fichas ni decide descartes. Su trabajo es entrar en cola, aceptar partida, activar las opciones del bot al empezar cada ronda, confirmar la pantalla final de partida y volver a entrar en cola.
+## What it does
+
+- Starts the queue and accepts a match.
+- Enables the configured in-game bot options at the start of each round.
+- Confirms the result screen and joins the queue again.
+- It does not play tiles or choose discards.
+
+## Quick start
+
+1. Download and run **BPSR-AutoMahjong.exe** from the [latest release](https://github.com/Joseleelsuper/BPSR-AutoMahjong/releases/latest).
+2. Open the game and stand near the Mahjong NPC.
+3. Press **F9** to start or pause automation. Press **F10** to exit the script.
 
 ## Hotkeys
 
-- `F9`: activar/desactivar automatización.
-- `F10`: salir del script.
+- **F9**: start or pause automation.
+- **F10**: exit the script.
 
-## Uso básico
+## Requirements and compatibility
 
-Para ejecutarlo, simplemente descargas el .exe y lo abres.
+- Windows.
+- To run the source file, install [AutoHotkey v2.0.19](https://github.com/AutoHotkey/AutoHotkey/releases/tag/v2.0.19).
+- Use a 16:9 game window. The 16:10 resolution 1440x900 is not supported; a centered 1280x720 window is recommended.
+- When using Steam or the official launcher, run the script with administrator privileges.
 
-Lo único que tienes que hacer es acercarte al NPC de Mahjong y:
-- F9 para activar/desactivar el script.
-- F10 para eliminar de memoria el script (El equivalente a cerrarlo con la X y tener que volver a abrirlo).
+## License
 
-Podéis descargar la última versión aquí: https://github.com/Joseleelsuper/BPSR-AutoMahjong/releases/latest
+This project is licensed under the MIT License. See [LICENSE](./LICENSE).
 
-Para ejecutar el fichero .ahk necesitarás tener instalado [AutoHotkey v2.0.19](https://github.com/AutoHotkey/AutoHotkey/releases/tag/v2.0.19)
+## Support
 
-## Licencia
-
-Este proyecto está bajo la Licencia MIT. Consulta el archivo [LICENSE](./LICENSE) para más detalles.
-
-## Contacto
-
-Podéis encontrarme en Discord como Joseleelsuper, dentro de la [Guild DaoPalace](https://discord.gg/brwaAZktrn).
+Join the [DaoPalace Discord server](https://discord.gg/brwaAZktrn) and find Joseleelsuper.
