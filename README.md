@@ -25,7 +25,7 @@ Automates the Leader and Players button flow for Mahjong in Blue Protocol: Star 
 
 ## Requirements and compatibility
 
-- Windows and AutoHotkey v2.0.19 or newer.
+- Windows. AutoHotkey v2.0.19 or newer is required only to run the `.ahk` source directly.
 - Use a 16:9 game client. Coordinates are scaled from a 1920x1080 reference.
 - Keep the game window active while automation runs.
 - When using Steam or the official launcher, run the script with administrator privileges.
